@@ -1,0 +1,2 @@
+[nbdev]
+griffe_quarto = griffe_quarto._modidx:d

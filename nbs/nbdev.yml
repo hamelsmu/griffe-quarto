@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "griffe-quarto"
+  site-url: "https://hamelsmu.github.io/griffe-quarto"
+  description: "Generate reference api docs for Quarto."
+  repo-branch: main
+  repo-url: "https://github.com/hamelsmu/griffe-quarto"
