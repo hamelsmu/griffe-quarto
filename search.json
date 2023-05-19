@@ -1,0 +1,23 @@
+[
+  {
+    "objectID": "loader.html",
+    "href": "loader.html",
+    "title": "loader",
+    "section": "",
+    "text": "Render a Jinja Template\nFirst, we construct a Jinja environment by attempting to load Jinja templates from a variety of locations in a preferential order. These locations are listed below in order of precedence:\n\nA _quartodoc_templates/ folder located at the root of your quarto project (in the same directory as _quarto.yml).\nThe ~/.quartodoc/templates folder (located in your home directory).\nThe templates located in the griffe_quarto python package. You can see them on GitHub here (make sure you are referencing the correct version if you have pinned that).\n\nThis precedence is important when using with template inheritance. An example is shown below.\nConsider the following example where we have two templates:\n\nthe parent template, qmd.tpl located in the griffe_quarto python package (in the templates/ folder).\nthe child template, test.tpl located in this quarto project in the _quartodoc_templates/ folder.\n\n\n!cat ../griffe_quarto/templates/qmd.tpl\n\n{% block frontmatter %}\n---\ntitle: {{ title }}\n{% if description %}\ndescription: {{ desc }}\n{% endif %}\n---\n{% endblock frontmatter %}\n\n{% block body %}{% endblock body %}\n\n\n\n!cat _quartodoc_templates/test.tpl\n\n{% extends \"qmd.tpl\" %}\n{% block body %}\nA test template with the variable `foo`: {{ foo }} \nAnother line with the variable `bar`: {{ bar }}\n{% endblock %}\n\n\nWe can render these templates like so:\nNote that test.tpl inherits from qmd.tpl.\n\ntemplate = env().get_template(\"test.tpl\")\n\n_rendered = template.render(title='A Test Title', \n                            description=None, \n                            foo='abc123', \n                            bar='xyz987')\nprint(_rendered)\n\n---\ntitle: A Test Title\n---\n\nA test template with the variable `foo`: abc123 \nAnother line with the variable `bar`: xyz987"
+  },
+  {
+    "objectID": "parser.html",
+    "href": "parser.html",
+    "title": "parser",
+    "section": "",
+    "text": "import griffe\nfrom griffe.dataclasses import Function, Parameters\n\n\ndef func_data(func:Function):\n    assert func.is_function, f'{func} is not a function'\n    return {'func_name': func.name,\n            'parameters': [p.as_dict() for p in func.parameters]}\n\n\nfunc = griffe.load('fastcore.parallel.parallel')\nfunc\n\n&lt;Function('parallel', 103, 117)&gt;\n\n\n\nfunc_data(func)\n\n{'func_name': 'parallel',\n 'parameters': [{'name': 'f',\n   'annotation': None,\n   'kind': &lt;ParameterKind.positional_or_keyword: 'positional or keyword'&gt;,\n   'default': None},\n  {'name': 'items',\n   'annotation': None,\n   'kind': &lt;ParameterKind.positional_or_keyword: 'positional or keyword'&gt;,\n   'default': None},\n  {'name': 'args',\n   'annotation': None,\n   'kind': &lt;ParameterKind.var_positional: 'variadic positional'&gt;,\n   'default': '()'},\n  {'name': 'n_workers',\n   'annotation': None,\n   'kind': &lt;ParameterKind.keyword_only: 'keyword-only'&gt;,\n   'default': 'defaults.cpus'},\n  {'name': 'total',\n   'annotation': None,\n   'kind': &lt;ParameterKind.keyword_only: 'keyword-only'&gt;,\n   'default': 'None'},\n  {'name': 'progress',\n   'annotation': None,\n   'kind': &lt;ParameterKind.keyword_only: 'keyword-only'&gt;,\n   'default': 'None'},\n  {'name': 'pause',\n   'annotation': None,\n   'kind': &lt;ParameterKind.keyword_only: 'keyword-only'&gt;,\n   'default': '0'},\n  {'name': 'method',\n   'annotation': None,\n   'kind': &lt;ParameterKind.keyword_only: 'keyword-only'&gt;,\n   'default': 'None'},\n  {'name': 'threadpool',\n   'annotation': None,\n   'kind': &lt;ParameterKind.keyword_only: 'keyword-only'&gt;,\n   'default': 'False'},\n  {'name': 'timeout',\n   'annotation': None,\n   'kind': &lt;ParameterKind.keyword_only: 'keyword-only'&gt;,\n   'default': 'None'},\n  {'name': 'chunksize',\n   'annotation': None,\n   'kind': &lt;ParameterKind.keyword_only: 'keyword-only'&gt;,\n   'default': '1'},\n  {'name': 'kwargs',\n   'annotation': None,\n   'kind': &lt;ParameterKind.var_keyword: 'variadic keyword'&gt;,\n   'default': '{}'}]}"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "griffe-quarto",
+    "section": "",
+    "text": "This repo is experimental: this is to explore possibilities of using griffe, mkdocstrings-python, jinja and more."
+  }
+]
