@@ -54,10 +54,10 @@ def _find_quarto_cfg(tpl_dir='_templates'):
 
 # %% ../nbs/00_loader.ipynb 8
 def _proj_templates():
-    "Returns path to local project quartodoc_templates/ directory if exists."
+    "Returns path to local project `_quartodoc_templates/` directory if exists."
     # TODO: allow changing the location of templates folder via a config
     cfg = _find_quarto_cfg()
-    if cfg: return cfg.parent/'quartodoc_templates/'
+    if cfg: return cfg.parent/'_quartodoc_templates/'
 
 # %% ../nbs/00_loader.ipynb 11
 def env():
